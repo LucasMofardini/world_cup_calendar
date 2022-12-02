@@ -1,0 +1,15 @@
+
+.nav-bar {
+  width: 100%;
+  background-color: var(--color-theme);
+
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+}
+.nav-bar h1 {
+  font-size: 1.0rem;
+  color: var(--background-color);
+  font-family: qatar-Bold;
+  user-select: none;
+}

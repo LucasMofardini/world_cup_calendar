@@ -1,0 +1,20 @@
+footer{
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+
+    display: flex;
+    justify-content: center;
+}
+footer .container-footer{
+    background-color: var(--color-theme);
+    padding: 5px 10px;
+    animation: left-right 5s infinite;
+
+}
+footer .container-footer p {
+    user-select: none;
+    font-family: qatar-Heavy;
+    color: var(--background-color);
+
+}
