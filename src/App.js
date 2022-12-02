@@ -1,12 +1,9 @@
-import Header from "./Components/Header/Header";
-import Footer from "./Components/Footer/Footer";
+import React from 'react';
+import Routes from './Routes';
 
 function App() {
   return (
-    <>
-      <Header/>
-      <Footer/>
-    </>
+    <Routes/>
   );
 }
 

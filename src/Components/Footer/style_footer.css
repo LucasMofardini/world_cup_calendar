@@ -9,7 +9,7 @@ footer{
 footer .container-footer{
     background-color: var(--color-theme);
     padding: 5px 10px;
-    animation: left-right 5s infinite;
+    animation: left-right 8s infinite;
 
 }
 footer .container-footer p {
