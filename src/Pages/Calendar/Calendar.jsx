@@ -1,54 +1,95 @@
-import React, { useEffect } from "react";
-// Import Swiper React components
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import ImageLogo from '../../Assets/images/2022_FIFA_World_Cup.svg.png';
+import ImageLogo from "../../Assets/images/2022_FIFA_World_Cup.svg.png";
+import Day from "../Day/Day";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 import "./style_calendar.css";
 
 // import required modules
-import { FreeMode, Navigation } from "swiper";
+import { FreeMode, Navigation, Pagination } from "swiper";
 
 const Calendar = () => {
-  
-  const loadInfos = async () => {
-    const res = await fetch('https://copa22.medeiro.tech/matches');
-    const data = await res.json();
-    console.log(data)
+  const [groupDays, setGroupDays] = useState(null);
 
-  } 
   useEffect(() => {
-    loadInfos()
-  },[]);
+    getMatches();
+  }, []);
+
+  const getMatches = async () => {
+    const res = await fetch("https://copa22.medeiro.tech/matches");
+    const data = await res.json();
+    const days = getDays(data);
+    // console.log(days)
+    setGroupDays(days);
+  };
+
+  const getDays = (matches) => {
+    let dayGroupMatches = {};
+
+    matches.forEach((match) => {
+      const newDate = new Date(match.date);
+      // Colocar os 0 se a data for 1 a 9; Ex : 1, 01
+      const day = newDate.getDate().toString().padStart(2, "0");
+      const month = (newDate.getMonth() + 1).toString().padStart(2, "0");
+
+      const dateWithMonth = `${day}/${month}`;
+
+      // Se Nao houver nenhum dia ja existente, cria um array com o dia de propriedade;
+      if (!dayGroupMatches[dateWithMonth]) dayGroupMatches[dateWithMonth] = [];
+      // Coloca os dados no dia/mes
+      dayGroupMatches[dateWithMonth].push(match);
+    });
+
+    return dayGroupMatches;
+  };
 
   return (
     <>
-    <section className="section-calendar">
-      <div className="container-header-calendar">
-        <img className="img-logo-header-calendar" src={ImageLogo} alt="" /> <h1>CALENDÁRIO</h1>
-      </div>
-     <Swiper
-        slidesPerView={3}
-        spaceBetween={30}
-        freeMode={true}
-        rewind={true}
-        navigation={true}
-        modules={[Navigation, FreeMode]}
-        className="mySwiper"
-      >
-        <SwiperSlide>Slide 1</SwiperSlide>
-        <SwiperSlide>Slide 2</SwiperSlide>
-        <SwiperSlide>Slide 3</SwiperSlide>
-        <SwiperSlide>Slide 4</SwiperSlide>
-        <SwiperSlide>Slide 5</SwiperSlide>
-        <SwiperSlide>Slide 6</SwiperSlide>
-        <SwiperSlide>Slide 7</SwiperSlide>
-        <SwiperSlide>Slide 8</SwiperSlide>
-        <SwiperSlide>Slide 9</SwiperSlide>
-      </Swiper>
+      <section className="section-calendar">
+        <div className="container-header-calendar">
+          <img
+            className="img-logo-header-calendar"
+            src={ImageLogo}
+            alt="Imagem do icone da copa 2022 qatar"
+          />{" "}
+          <h1>CALENDÁRIO</h1>
+        </div>
+
+        {groupDays ? (
+          <Swiper
+            slidesPerView={3}
+            spaceBetween={30}
+            freeMode={true}
+            rewind={true}
+            navigation={true}
+            pagination={true}
+            modules={[Navigation, FreeMode, Pagination]}
+            className="mySwiper"
+          >
+            {Object.entries(groupDays).map((groupDay, index) => {
+              const day = groupDay[0];
+              const matches = groupDay[1];
+
+              return (
+                <SwiperSlide>
+                  <div className="header__day">{day}</div>
+                  <div className="matches__day">
+                    {matches.map((match) => {
+                      return <p>a</p>
+                    })}
+                  </div>
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
+        ) : (
+          "Carregando..."
+        )}
       </section>
     </>
   );
