@@ -24,7 +24,7 @@ const Calendar = () => {
     const res = await fetch("https://copa22.medeiro.tech/matches");
     const data = await res.json();
     const days = getDays(data);
-    // console.log(days)
+    console.log(days)
     setGroupDays(days);
   };
 
@@ -76,12 +76,16 @@ const Calendar = () => {
               const matches = groupDay[1];
 
               return (
-                <SwiperSlide>
-                  <div className="header__day">{day}</div>
-                  <div className="matches__day">
-                    {matches.map((match) => {
-                      return <p>a</p>
-                    })}
+                <SwiperSlide key={index}>
+                  <div className="day">
+                    <div className="header__day">{day}</div>
+                    <div className="matches__day">
+                      {matches.map((match, i) => {
+                        return(
+                            <div className="match" key={i}>{match.awayTeam.name} X {match.homeTeam.name}</div>
+                          )
+                      })}
+                    </div>
                   </div>
                 </SwiperSlide>
               );

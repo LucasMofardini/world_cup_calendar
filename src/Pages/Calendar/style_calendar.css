@@ -41,3 +41,8 @@
 .container-header-calendar .img-logo-header-calendar{
   width: 40px;
 }
+
+.matches__day{
+  display: flex;
+  flex-direction: column;
+}
