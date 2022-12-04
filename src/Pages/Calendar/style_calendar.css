@@ -57,13 +57,22 @@
 .matches__day{
   display: flex;
   flex-direction: column;
+  width: 250px;
+  background-color: aqua;
 }
 .match{
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   gap: 10px;
 }
 .match img{
   width: 30px;
+}
+.team{
+  width: 100px;
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+  margin: 10px 0;
 }

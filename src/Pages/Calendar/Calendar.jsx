@@ -25,7 +25,7 @@ const Calendar = () => {
     const res = await fetch("https://copa22.medeiro.tech/matches");
     const data = await res.json();
     const days = getDays(data);
-    console.log(days)
+    console.log(days);
     setGroupDays(days);
   };
 
@@ -49,16 +49,13 @@ const Calendar = () => {
     return dayGroupMatches;
   };
 
-  const getImage =  (name) => {
-    if(name){
-    const newName = name.toString().toLowerCase();
-    const flagTreated = `icon-${newName}.svg`;
-    //  const response = await import (`../../Assets/images/flags/${flagTreated}`);
-    //  console.log(response)
-    //  setImage(response.default)
-     return flagTreated;
-  }
-  }
+  const getImage = (name) => {
+    if (name) {
+      const newName = name.toString().toLowerCase();
+      const flagTreated = `icon-${newName}.svg`;
+      return flagTreated;
+    }
+  };
 
   return (
     <>
@@ -90,14 +87,29 @@ const Calendar = () => {
               return (
                 <SwiperSlide key={index}>
                   <div className="day">
-                    <div className="header__day"><span>{day}</span></div>
+                    <div className="header__day">
+                      <span>{day}</span>
+                    </div>
                     <div className="matches__day">
                       {matches?.map((match, i) => {
-                        return(
-                            <div className="match" key={i}>
-                               <img src={`/flags/${getImage(match.awayTeam.name)}`}/> X <img src={`/flags/${getImage(match.homeTeam?.name)}`} />
+                        const date = new Date(match.date);
+                        const hourMinutesSecound = `${date.getHours()}:${date.getMinutes()}${date.getSeconds()}`;
+
+                        return (
+                          <div className="match" key={i}>
+                            <div className="team">
+                              <img src={`/flags/${getImage(match.awayTeam.name)}`} alt="First team" />
+                              <p>{match.awayTeam.name}</p>
                             </div>
-                          )
+                            <span class="hour">
+                              {hourMinutesSecound}
+                            </span>
+                            <div className="team">
+                              <img src={`/flags/${getImage(match.homeTeam?.name)}`} alt="Secound team" />
+                              <p>{match.homeTeam.name}</p>
+                            </div>
+                          </div>
+                        );
                       })}
                     </div>
                   </div>
