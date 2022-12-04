@@ -15,6 +15,7 @@ import { FreeMode, Navigation, Pagination } from "swiper";
 
 const Calendar = () => {
   const [groupDays, setGroupDays] = useState(null);
+  const [image, setImage] = useState(null);
 
   useEffect(() => {
     getMatches();
@@ -48,6 +49,17 @@ const Calendar = () => {
     return dayGroupMatches;
   };
 
+  const getImage =  (name) => {
+    if(name){
+    const newName = name.toString().toLowerCase();
+    const flagTreated = `icon-${newName}.svg`;
+    //  const response = await import (`../../Assets/images/flags/${flagTreated}`);
+    //  console.log(response)
+    //  setImage(response.default)
+     return flagTreated;
+  }
+  }
+
   return (
     <>
       <section className="section-calendar">
@@ -78,11 +90,13 @@ const Calendar = () => {
               return (
                 <SwiperSlide key={index}>
                   <div className="day">
-                    <div className="header__day">{day}</div>
+                    <div className="header__day"><span>{day}</span></div>
                     <div className="matches__day">
-                      {matches.map((match, i) => {
+                      {matches?.map((match, i) => {
                         return(
-                            <div className="match" key={i}>{match.awayTeam.name} X {match.homeTeam.name}</div>
+                            <div className="match" key={i}>
+                               <img src={`/flags/${getImage(match.awayTeam.name)}`}/> X <img src={`/flags/${getImage(match.homeTeam?.name)}`} />
+                            </div>
                           )
                       })}
                     </div>

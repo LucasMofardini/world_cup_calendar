@@ -42,7 +42,28 @@
   width: 40px;
 }
 
+/* GroupDay */
+
+.header__day{
+  font-size: 2.0rem;
+  font-family: qatar-Medium;
+  margin-bottom: 20px;
+}
+.header__day span{
+  background-color: var(--color-theme);
+  color: var(--background-color);
+  padding: 10px 15px;
+}
 .matches__day{
   display: flex;
   flex-direction: column;
+}
+.match{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.match img{
+  width: 30px;
 }
